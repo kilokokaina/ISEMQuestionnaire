@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" data-layout="topnav" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <title>Опросник</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+        <!-- Theme Config Js -->
+        <script th:src="@{/js/hyper-config.js}"></script>
+
+        <!-- App css -->
+        <link th:href="@{/css/app-saas.min.css}" rel="stylesheet" type="text/css" id="app-style" />
+
+        <!-- Icons css -->
+        <link th:href="@{/css/icons.min.css}" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <!-- Begin page -->
+        <div class="wrapper">
+
+            <!-- ========== Topbar Start ========== -->
+            <div class="navbar-custom">
+                <div class="topbar container-fluid">
+                    <div class="d-flex align-items-center gap-lg-2 gap-1">
+
+                        <!-- Topbar Brand Logo -->
+                        <div class="logo-topbar">
+                            <!-- Logo light -->
+                            <a href="index.html" class="logo-light">
+                                <span class="logo-lg">
+                                    <img th:src="@{/images/logoDark.svg}" alt="logo">
+                                </span>
+                                <span class="logo-sm">
+                                    <img th:src="@{/images/logo-sm.png}" alt="small logo">
+                                </span>
+                            </a>
+
+                            <!-- Logo Dark -->
+                            <a th:href="@{/}" class="logo-dark">
+                                <span class="logo-lg">
+                                    <img th:src="@{/images/logoDark.svg}" alt="dark logo">
+                                </span>
+                                <span class="logo-sm">
+                                    <img th:src="@{/images/logo-dark-sm.png}" alt="small logo">
+                                </span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <ul class="topbar-menu d-flex align-items-center gap-3">
+                        <li class="dropdown d-lg-none">
+                            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <i class="ri-search-line font-22"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
+                                <form class="p-3">
+                                    <input type="search" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                </form>
+                            </div>
+                        </li>
+
+                        <li class="d-none d-sm-inline-block">
+                            <div class="nav-link" id="light-dark-mode" data-bs-toggle="tooltip" data-bs-placement="left" title="Theme Mode">
+                                <i class="ri-moon-line font-22"></i>
+                            </div>
+                        </li>
+
+                        <li class="d-none d-md-inline-block">
+                            <a class="nav-link" href="" data-toggle="fullscreen">
+                                <i class="ri-fullscreen-line font-22"></i>
+                            </a>
+                        </li>
+
+                        <li class="dropdown">
+                            <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <span class="account-user-avatar">
+                                    <img th:src="@{/images/users/avatar-1.jpg}" alt="user-image" width="32" class="rounded-circle">
+                                </span>
+                                <span class="d-lg-flex flex-column gap-1 d-none">
+                                    <h5 class="my-0">ISEM</h5>
+                                    <h6 class="my-0 fw-normal">Development</h6>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- ========== Topbar End ========== -->
+
+            <!-- ========== Horizontal Menu Start ========== -->
+            <div class="topnav">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="collapse navbar-collapse" id="topnav-menu-content">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle arrow-none" th:href="@{/}" id="topnav-dashboards" role="button">
+                                        <i class="uil-dashboard"></i>Опрос
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <!-- ========== Horizontal Menu End ========== -->
+
+            <div class="content-page">
+                <div class="content-page">
+                    <div class="content">
+
+                        <!-- Start Content-->
+                        <div class="container-fluid">
+
+                            <!-- start page title -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="page-title-box">
+                                        <div class="page-title-right">
+                                            <ol class="breadcrumb m-0">
+                                                <li class="breadcrumb-item"><a href="javascript: void(0);">ИСЭМ</a></li>
+                                                <li class="breadcrumb-item"><a href="javascript: void(0);">Опрос</a></li>
+                                            </ol>
+                                        </div>
+                                        <h3 class="page-title">Опрос</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end page title -->
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form method="post" th:action="@{/}" th:object="${questionnaire}">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <h4 class="mt-2">Проведение опроса сотрудников для выявления неявных знаний.</h4>
+
+                                                        <p class="text-muted">Пожалуйста, ответьте на все вопросы ниже</p>
+
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="mb-3">
+                                                                    <label for="billing-first-name" class="form-label">Имя</label>
+                                                                    <input class="form-control" type="text" th:field="*{firstName}" placeholder="Enter your first name" id="billing-first-name" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="mb-3">
+                                                                    <label for="billing-last-name" class="form-label">Фамилия</label>
+                                                                    <input class="form-control" type="text" th:field="*{secondName}" placeholder="Enter your last name" id="billing-last-name" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="mb-3">
+                                                                    <label for="billing-email-address" class="form-label">Email<span class="text-danger">*</span></label>
+                                                                    <input class="form-control" type="email" th:field="*{email}" placeholder="Enter your email" id="billing-email-address" />
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- end row -->
+
+                                                        <h4 class="mt-5">Опрос по 1-му классификатору</h4>
+                                                        <label for="billing-email-address" class="form-label">Выберете, какие области знаний, на Ваш взгляд, являются наиболее значимыми для решения Ваших рабочих задач<span class="text-danger">*</span></label>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="border p-3 mt-4 mt-lg-0 rounded">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="FCFirstLevel1">Область<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" id="FCFirstLevel1" th:field="*{FCFirstLevel1}" onchange="getKnowledgeSection('first', 'second', 'FCFirstLevel1', 'FCSecondLevel1')">
+                                                                            <option value="" selected>Выберите 1-ую область знаний</option>
+                                                                            <option value="ИНФОРМАЦИОННЫЕ ТЕХНОЛОГИИ">ИНФОРМАЦИОННЫЕ ТЕХНОЛОГИИ</option>
+                                                                            <option value="ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ">ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ</option>
+                                                                            <option value="ИТ-ИНФРАСТРУКТУРА СИСТЕМНЫХ ИССЛЕДОВАНИЙ В ЭНЕРГЕТИКЕ">ИТ-ИНФРАСТРУКТУРА СИСТЕМНЫХ ИССЛЕДОВАНИЙ В ЭНЕРГЕТИКЕ</option>
+                                                                            <option value="ЭНЕРГЕТИКА">ЭНЕРГЕТИКА</option>
+                                                                            <option value="ЭКОЛОГИЯ">ЭКОЛОГИЯ</option>
+                                                                            <option value="КИБЕРБЕЗОПАСНОСТЬ">КИБЕРБЕЗОПАСНОСТЬ</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="FCSecondLevel1">Раздел области<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" id="FCSecondLevel1" th:field="*{FCSecondLevel1}" onchange="getKnowledgeSection('first', 'third', 'FCSecondLevel1', 'FCThirdLevel1')">
+                                                                            <option value="" selected>Выберите значимый раздел данной области</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="FCThirdLevel1">Направление раздела<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" id="FCThirdLevel1" th:field="*{FCThirdLevel1}">
+                                                                            <option value="" selected>Выберите значимое направление данного раздела</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mt-3">
+                                                                        <label class="form-label">Каков ваш уровень владения этим знанием?<span class="text-danger">*</span></label>
+                                                                        <div>
+                                                                            <div class="form-check ">
+                                                                                <input type="radio" id="firstClass1_1" value="Базовый" th:field="*{FCKnowledgeLevel1}" class="form-check-input">
+                                                                                <label class="form-check-label" for="firstClass1_1">Базовый</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="firstClass1_2" value="Начальный" th:field="*{FCKnowledgeLevel1}" class="form-check-input">
+                                                                                <label class="form-check-label" for="firstClass1_2">Начальный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="firstClass1_3" value="Квалифицированный" th:field="*{FCKnowledgeLevel1}" class="form-check-input">
+                                                                                <label class="form-check-label" for="firstClass1_3">Квалифицированный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="firstClass1_4" value="Профессиональный" th:field="*{FCKnowledgeLevel1}" class="form-check-input">
+                                                                                <label class="form-check-label" for="firstClass1_4">Профессиональный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="firstClass1_5" value="Экспертный" th:field="*{FCKnowledgeLevel1}" class="form-check-input">
+                                                                                <label class="form-check-label" for="firstClass1_5">Экспертный</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="mt-1">
+                                                                        <label for="FCInput1_1" class="form-label">К кому вы обратитесь за советом по вопросу в данной облпасти?</label>
+                                                                        <input type="text" id="FCInput1_1" th:field="*{FCExpertFIO1}" class="form-control">
+                                                                    </div>
+
+                                                                    <div class="mt-1">
+                                                                        <label for="FCInput1_2" class="form-label">В каких дополнительных источниках по этому вопросу вы нуждаетесь?</label>
+                                                                        <input type="text" id="FCInput1_2" th:field="*{FCAdditionSources1}" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="border p-3 mt-4 mt-lg-0 rounded">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="FCFirstLevel2">Область<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" id="FCFirstLevel2" th:field="*{FCFirstLevel2}" onchange="getKnowledgeSection('first', 'second', 'FCFirstLevel2', 'FCSecondLevel2')">
+                                                                            <option value="" selected>Выберите 2-ую область знаний</option>
+                                                                            <option value="ИНФОРМАЦИОННЫЕ ТЕХНОЛОГИИ">ИНФОРМАЦИОННЫЕ ТЕХНОЛОГИИ</option>
+                                                                            <option value="ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ">ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ</option>
+                                                                            <option value="ИТ-ИНФРАСТРУКТУРА СИСТЕМНЫХ ИССЛЕДОВАНИЙ В ЭНЕРГЕТИКЕ">ИТ-ИНФРАСТРУКТУРА СИСТЕМНЫХ ИССЛЕДОВАНИЙ В ЭНЕРГЕТИКЕ</option>
+                                                                            <option value="ЭНЕРГЕТИКА">ЭНЕРГЕТИКА</option>
+                                                                            <option value="ЭКОЛОГИЯ">ЭКОЛОГИЯ</option>
+                                                                            <option value="КИБЕРБЕЗОПАСНОСТЬ">КИБЕРБЕЗОПАСНОСТЬ</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="FCSecondLevel2">Раздел области<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" id="FCSecondLevel2" th:field="*{FCSecondLevel2}" onchange="getKnowledgeSection('first', 'third', 'FCSecondLevel2', 'FCThirdLevel2')">
+                                                                            <option value="" selected>Выберите значимый раздел данной области</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="FCThirdLevel2">Направление раздела<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" id="FCThirdLevel2" th:field="*{FCThirdLevel2}">
+                                                                            <option value="" selected>Выберите значимое направление данного раздела</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mt-3">
+                                                                        <label class="form-label">Каков ваш уровень владения этим знанием?<span class="text-danger">*</span></label>
+                                                                        <div>
+                                                                            <div class="form-check ">
+                                                                                <input type="radio" id="firstClass2_1" value="Базовый" th:field="*{FCKnowledgeLevel2}" class="form-check-input">
+                                                                                <label class="form-check-label" for="firstClass2_1">Базовый</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="firstClass2_2" value="Начальный" th:field="*{FCKnowledgeLevel2}" class="form-check-input">
+                                                                                <label class="form-check-label" for="firstClass2_2">Начальный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="firstClass2_3" value="Квалифицированный" th:field="*{FCKnowledgeLevel2}" class="form-check-input">
+                                                                                <label class="form-check-label" for="firstClass2_3">Квалифицированный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="firstClass2_4" value="Профессиональный" th:field="*{FCKnowledgeLevel2}" class="form-check-input">
+                                                                                <label class="form-check-label" for="firstClass2_4">Профессиональный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="firstClass2_5" value="Экспертный" th:field="*{FCKnowledgeLevel2}" class="form-check-input">
+                                                                                <label class="form-check-label" for="firstClass2_5">Экспертный</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="mt-1">
+                                                                        <label for="FCInput2_1" class="form-label">К кому вы обратитесь за советом по вопросу в данной облпасти?</label>
+                                                                        <input type="text" id="FCInput2_1" th:field="*{FCExpertFIO2}" class="form-control">
+                                                                    </div>
+
+                                                                    <div class="mt-1">
+                                                                        <label for="FCInput2_2" class="form-label">В каких дополнительных источниках по этому вопросу вы нуждаетесь?</label>
+                                                                        <input type="text" id="FCInput2_2" th:field="*{FCAdditionSources2}" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- end row -->
+
+                                                        <h4 class="mt-5">Опрос по 2-му классификатору</h4>
+                                                        <label for="billing-email-address" class="form-label">Выберете, какие области знаний, на Ваш взгляд, являются наиболее значимыми для решения Ваших рабочих задач<span class="text-danger">*</span></label>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="border p-3 mt-4 mt-lg-0 rounded">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="SCFirstLevel1">Область<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" th:field="*{SCFirstLevel1}" id="SCFirstLevel1" onchange="getKnowledgeSection('second', 'second', 'SCFirstLevel1', 'SCSecondLevel1')">
+                                                                            <option value="" selected>Выберите 1-ую область знаний</option>
+                                                                            <option value="МЕТОДОЛОГИЯ">МЕТОДОЛОГИЯ</option>
+                                                                            <option value="ОБЛАСТИ ПРИМЕНЕНИЯ">ОБЛАСТИ ПРИМЕНЕНИЯ</option>
+                                                                            <option value="ИНСТРУМЕНТАЛЬНЫЕ СРЕДСТВА">ИНСТРУМЕНТАЛЬНЫЕ СРЕДСТВА</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="SCSecondLevel1">Раздел области<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" th:field="*{SCSecondLevel1}" id="SCSecondLevel1" onchange="getKnowledgeSection('second', 'third', 'SCSecondLevel1', 'SCThirdLevel1')">
+                                                                            <option value="" selected>Выберете значимый раздел данной области</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="SCThirdLevel1">Направление раздела<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" th:field="*{SCThirdLevel1}" id="SCThirdLevel1">
+                                                                            <option value="" selected>Выберете значимое направление данного раздела</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mt-3">
+                                                                        <label class="form-label">Каков ваш уровень владения этим знанием?<span class="text-danger">*</span></label>
+                                                                        <div>
+                                                                            <div class="form-check ">
+                                                                                <input type="radio" id="secondClass1_1" value="Базовый"  th:field="*{SCKnowledgeLevel1}" class="form-check-input">
+                                                                                <label class="form-check-label" for="secondClass1_1">Базовый</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="secondClass1_2" value="Начальный" th:field="*{SCKnowledgeLevel1}" class="form-check-input">
+                                                                                <label class="form-check-label" for="secondClass1_2">Начальный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="secondClass1_3" value="Квалифицированный" th:field="*{SCKnowledgeLevel1}" class="form-check-input">
+                                                                                <label class="form-check-label" for="secondClass1_3">Квалифицированный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="secondClass1_4" value="Профессиональный" th:field="*{SCKnowledgeLevel1}" class="form-check-input">
+                                                                                <label class="form-check-label" for="secondClass1_4">Профессиональный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="secondClass1_5" value="Экспертный" th:field="*{SCKnowledgeLevel1}" class="form-check-input">
+                                                                                <label class="form-check-label" for="secondClass1_5">Экспертный</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="mt-1">
+                                                                        <label for="SCInput1_1" class="form-label">К кому вы обратитесь за советом по вопросу в данной облпасти?</label>
+                                                                        <input type="text" id="SCInput1_1" th:field="*{SCExpertFIO1}" class="form-control">
+                                                                    </div>
+
+                                                                    <div class="mt-1">
+                                                                        <label for="SCInput1_2" class="form-label">В каких дополнительных источниках по этому вопросу вы нуждаетесь?</label>
+                                                                        <input type="text" id="SCInput1_2" th:field="*{SCAdditionSources1}" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="border p-3 mt-4 mt-lg-0 rounded">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="SCFirstLevel2">Область<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" th:field="*{SCFirstLevel2}" id="SCFirstLevel2" onchange="getKnowledgeSection('second', 'second', 'SCFirstLevel2', 'SCSecondLevel2')">
+                                                                            <option value="" selected>Выберите 1-ую область знаний</option>
+                                                                            <option value="МЕТОДОЛОГИЯ">МЕТОДОЛОГИЯ</option>
+                                                                            <option value="ОБЛАСТИ ПРИМЕНЕНИЯ">ОБЛАСТИ ПРИМЕНЕНИЯ</option>
+                                                                            <option value="ИНСТРУМЕНТАЛЬНЫЕ СРЕДСТВА">ИНСТРУМЕНТАЛЬНЫЕ СРЕДСТВА</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="SCSecondLevel2">Раздел области<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" th:field="*{SCSecondLevel2}" id="SCSecondLevel2" onchange="getKnowledgeSection('second', 'third', 'SCSecondLevel2', 'SCThirdLevel2')">
+                                                                            <option value="" selected>Выберете значимый раздел данной области</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="SCThirdLevel2">Направление раздела<span class="text-danger">*</span></label>
+                                                                        <select class="form-select mb-3" th:field="*{SCThirdLevel2}" id="SCThirdLevel2">
+                                                                            <option value="" selected>Выберете значимое направление данного раздела</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mt-3">
+                                                                        <label class="form-label">Каков ваш уровень владения этим знанием?<span class="text-danger">*</span></label>
+                                                                        <div>
+                                                                            <div class="form-check ">
+                                                                                <input type="radio" id="secondClass2_1" value="Базовый" th:field="*{SCKnowledgeLevel2}" class="form-check-input">
+                                                                                <label class="form-check-label" for="secondClass2_1">Базовый</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="secondClass2_2" value="Начальный" th:field="*{SCKnowledgeLevel2}" class="form-check-input">
+                                                                                <label class="form-check-label" for="secondClass2_2">Начальный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="secondClass2_3" value="Квалифицированный" th:field="*{SCKnowledgeLevel2}" class="form-check-input">
+                                                                                <label class="form-check-label" for="secondClass2_3">Квалифицированный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="secondClass2_4" value="Профессиональный" th:field="*{SCKnowledgeLevel2}" class="form-check-input">
+                                                                                <label class="form-check-label" for="secondClass2_4">Профессиональный</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" id="secondClass2_5" value="Экспертный" th:field="*{SCKnowledgeLevel2}" class="form-check-input">
+                                                                                <label class="form-check-label" for="secondClass2_5">Экспертный</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="mt-1">
+                                                                        <label for="SCInput2_1" class="form-label">К кому вы обратитесь за советом по вопросу в данной облпасти?</label>
+                                                                        <input type="text" id="SCInput2_1" th:field="*{SCExpertFIO2}" class="form-control">
+                                                                    </div>
+
+                                                                    <div class="mt-1">
+                                                                        <label for="SCInput2_2" class="form-label">В каких дополнительных источниках по этому вопросу вы нуждаетесь?</label>
+                                                                        <input type="text" id="SCInput2_2" th:field="*{SCAdditionSources2}" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- end row -->
+
+                                                        <div class="mt-5">
+                                                            <label class="form-label">Оцените по шкале от 1 до 5 (1-не согласен, 3-затрудняюсь ответить, 5-абсолютно согласен)</label>
+                                                            <div class="mb-0">
+                                                                <label class="form-label">Я готов фиксировать знания в письменном виде<span class="text-danger">*</span></label>
+                                                                <div class="mb-1">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ1_1" value="1" th:field="*{knowledgeFixation}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ1_1">1</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ1_2" value="2" th:field="*{knowledgeFixation}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ1_2">2</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ1_3" value="3" th:field="*{knowledgeFixation}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ1_3">3</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ1_4" value="4" th:field="*{knowledgeFixation}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ1_4">4</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ1_5" value="5" th:field="*{knowledgeFixation}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ1_5">5</label>
+                                                                    </div>
+                                                                </div>
+                                                                <label class="form-label">Я готов лично делиться этими знаниями с коллегами<span class="text-danger">*</span></label>
+                                                                <div class="mb-1">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ2_1" value="1" th:field="*{knowledgeShare}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ2_1">1</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ2_2" value="2" th:field="*{knowledgeShare}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ2_2">2</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ2_3" value="3" th:field="*{knowledgeShare}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ2_3">3</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ2_4" value="4" th:field="*{knowledgeShare}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ2_4">4</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ2_5" value="5" th:field="*{knowledgeShare}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ2_5">5</label>
+                                                                    </div>
+                                                                </div>
+                                                                <label class="form-label">Эти знания можно легко найти во внутренних документах<span class="text-danger">*</span></label>
+                                                                <div class="mb-1">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ3_1" value="1" th:field="*{knowledgeFindingInner}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ3_1">1</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ3_2" value="2" th:field="*{knowledgeFindingInner}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ3_2">2</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ3_3" value="3" th:field="*{knowledgeFindingInner}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ3_3">3</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ3_4" value="4" th:field="*{knowledgeFindingInner}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ3_4">4</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ3_5" value="5" th:field="*{knowledgeFindingInner}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ3_5">5</label>
+                                                                    </div>
+                                                                </div>
+                                                                <label class="form-label">Эти знания легко можно найти во внешних источниках<span class="text-danger">*</span></label>
+                                                                <div class="mb-1">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ4_1" value="1" th:field="*{knowledgeFindingOuter}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ4_1">1</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ4_2" value="2" th:field="*{knowledgeFindingOuter}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ4_2">2</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ4_3" value="3" th:field="*{knowledgeFindingOuter}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ4_3">3</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ4_4" value="4" th:field="*{knowledgeFindingOuter}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ4_4">4</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input type="radio" id="generalQ4_5" value="5" th:field="*{knowledgeFindingOuter}" class="form-check-input">
+                                                                        <label class="form-check-label" for="generalQ4_5">5</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mt-2">
+                                                            <label for="GeneralInput1" class="form-label">С кем на работе вы взаимодействуете чаще всего? <span class="text-danger">*</span></label>
+                                                            <input type="text" id="GeneralInput1" th:field="*{interactEmployee}" class="form-control">
+                                                        </div>
+                                                        <div class="mt-2">
+                                                            <label for="GeneralInput2" class="form-label">Как часто вы взаимоедйствуете с сотрудником из предыдущего вопроса? <span class="text-danger">*</span></label>
+                                                            <input type="text" id="GeneralInput2" th:field="*{interactFrequency}" class="form-control">
+                                                        </div>
+
+                                                        <div class="row mt-4">
+                                                            <div class="col-sm-12">
+                                                                <div class="text-sm-end">
+                                                                    <button type="submit" class="btn btn-success">
+                                                                        <i class="mdi mdi-truck-fast me-1"></i> Завершить опрос </button>
+                                                                </div>
+                                                            </div> <!-- end col -->
+                                                        </div> <!-- end row -->
+                                                    </div>
+                                                </div> <!-- end row-->
+                                            </form>
+                                        </div> <!-- end card-body-->
+                                    </div> <!-- end card-->
+                                </div> <!-- end col -->
+                            </div>
+                            <!-- end row-->
+
+                        </div> <!-- container -->
+
+                    </div> <!-- content -->
+
+                    <!-- content -->
+
+                    <!-- Footer Start -->
+                    <footer class="footer">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <script>document.write(new Date().getFullYear())</script> ISEM
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-md-end footer-links d-none d-md-block">
+                                        <a href="javascript: void(0);">About</a>
+                                        <a href="javascript: void(0);">Support</a>
+                                        <a href="javascript: void(0);">Contact Us</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- end Footer -->
+                </div>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+        </div>
+        <!-- END wrapper -->
+        
+        <!-- Vendor js -->
+        <script th:src="@{/js/vendor.min.js}"></script>
+
+        <!-- App js -->
+        <script th:src="@{/js/app.min.js}"></script>
+        <script th:src="@{/js/field-level.js}"></script>
+    </body>
+</html>
