@@ -5,13 +5,23 @@ import com.example.isemquestionnaire.model.Questionnaire;
 import com.example.isemquestionnaire.repository.QuestionRepository;
 import com.example.isemquestionnaire.service.FieldLevelService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -68,6 +78,27 @@ public class MainController {
             log.info(exception.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("download")
+    public @ResponseBody ResponseEntity<FileSystemResource> getQuestionnaire() {
+        try (FileInputStream inputStream = new FileInputStream("/src/main/resources/questionnaire.xlsx");
+             FileOutputStream outputStream = new FileOutputStream("/src/main/resources/questionnaire.xlsx")) {
+
+            Workbook excel = new XSSFWorkbook(inputStream);
+            Sheet sheet = excel.getSheetAt(0);
+
+            Row testRow = sheet.getRow(2);
+            Cell testCell = testRow.getCell(0);
+            testCell.setCellValue("TEST");
+
+            excel.write(outputStream);
+            excel.close();
+
+        } catch (IOException exception) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return null;
     }
 
 }
