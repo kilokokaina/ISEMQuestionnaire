@@ -39,7 +39,7 @@ public class MainController {
     @GetMapping
     public String home(Model model) {
         model.addAttribute("questionnaire", new Questionnaire());
-        return "index";
+        return "layouts-horizontal";
     }
 
     @PostMapping
@@ -85,10 +85,6 @@ public class MainController {
 
             Workbook excel = new XSSFWorkbook(inputStream);
             Sheet sheet = excel.getSheet("Лист1");
-
-            Row testRow = sheet.getRow(2);
-            Cell testCell = testRow.getCell(0);
-            testCell.setCellValue("TEST");
 
             List<Questionnaire> questionnaires = questionRepository.findAll();
             for (int i = 0; i < questionnaires.size(); i++) {
